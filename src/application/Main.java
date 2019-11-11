@@ -21,11 +21,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Database db = new Database();
 	
 	Book selectedBook;
+	User currentUser;
 	
 	Label selectedBookTitleLabel = new Label();
 	Label selectedBookAuthorLabel = new Label();
 	Label selectedBookYearPublishedLabel = new Label();
 	Label selectedBookNumAvailableLabel = new Label();
+	
+	Label currentUserNameLabel = new Label();
+	Label currentUserIsAdminLabel = new Label();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -46,8 +50,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			// Setup main BorderPane
 			BorderPane mainPane = new BorderPane();
 			mainPane.setLeft(bookBrowser());
+			mainPane.setRight(userScreen());
 			mainPane.setCenter(centerScreen());
 			mainPane.setTop(titleBox);
+	
 			
 			// Setup main scene with the BorderPane
 			Scene scene = new Scene(mainPane,800,400);
@@ -64,20 +70,22 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 	
 	public VBox bookBrowser() throws SQLException {
+		Label title = new Label("Available Books");
+		VBox titleVBox = new VBox(title);
+		titleVBox.setAlignment(Pos.CENTER);
+		
 		ListView<Book> list = new ListView<Book>();
 		list.getItems().addAll(db.getAvailableBooks("title"));
 		list.setCellFactory(new BookCellFactory());
 		
 		list.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> updateSelectedBook(newValue));
 		
-		Label title = new Label("Available Books");
-		
-		VBox vbox = new VBox();
-		vbox.getChildren().add(title);
-		vbox.getChildren().add(list);
-		vbox.setAlignment(Pos.CENTER);
-		
-		return vbox;
+		VBox outerVBox = new VBox(titleVBox,list);
+		outerVBox.setStyle("-fx-border-style: solid;"
+                + "-fx-border-width: 1;"
+                + "-fx-border-color: black");
+		outerVBox.setPrefWidth(300);
+		return outerVBox;
 	}
 	
 	public VBox centerScreen() {
@@ -89,11 +97,38 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		selectedBookAuthorLabel.setText("Author: ");
 		selectedBookYearPublishedLabel.setText("Year Published: ");
 		selectedBookNumAvailableLabel.setText("Number Available: ");
-		VBox bookDetailsVBox = new VBox(selectedBookTitleLabel
+		VBox bookDetailsVBox = new VBox(
+				selectedBookTitleLabel
 				,selectedBookAuthorLabel
 				,selectedBookYearPublishedLabel
 				,selectedBookNumAvailableLabel);
+//		bookDetailsVBox.setPrefWidth(50);
 		VBox outerVBox = new VBox(titleVBox,bookDetailsVBox);
+//		outerVBox.setPrefWidth(50);
+		outerVBox.setStyle("-fx-border-style: solid;"
+                + "-fx-border-width: 1;"
+                + "-fx-border-color: black");
+		return outerVBox;
+	}
+	
+	public VBox userScreen() {
+		Label title = new Label("Current User");
+		VBox titleVBox = new VBox(title);
+//		titleVBox.setPrefWidth(50);
+		titleVBox.setAlignment(Pos.CENTER);
+		
+		currentUserNameLabel.setText("Name: ");
+		currentUserIsAdminLabel.setText("Is Admin?: ");
+		VBox currentUserDetailsVBox = new VBox(
+				currentUserNameLabel
+				,currentUserIsAdminLabel);
+//		bookDetailsVBox.setPrefWidth(50);
+		VBox outerVBox = new VBox(titleVBox,currentUserDetailsVBox);
+		outerVBox.setPrefWidth(200);
+//		outerVBox.setAlignment(Pos.TOP_LEFT);
+		outerVBox.setStyle("-fx-border-style: solid;"
+                + "-fx-border-width: 1;"
+                + "-fx-border-color: black");
 		return outerVBox;
 	}
 	
