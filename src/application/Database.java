@@ -2,6 +2,7 @@ package application;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +15,15 @@ public class Database {
 		
 		String url = "jdbc:postgresql://localhost:5432/java_library";
 		
+		Properties props = new Properties();
+		String db_url = "jdbc:postgresql://ec2-54-225-115-177.compute-1.amazonaws.com:5432/d42rfdpu706cgu";
+		props.setProperty("user", "ebyevyrayojzsu");
+		props.setProperty("password", "2a1082e27d87e03da1447d5b6e32e14908afb625a431af9e23f6da5423466d22");
+		
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(url);
+//			Connection conn = DriverManager.getConnection(db_url, props);
 			this.conn = conn;
 			
 		} catch (ClassNotFoundException | SQLException e) {

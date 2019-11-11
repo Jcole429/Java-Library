@@ -85,7 +85,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		VBox titleVBox = new VBox(title);
 		titleVBox.setAlignment(Pos.CENTER);
 		
-		
 		selectedBookTitleLabel.setText("Title: ");
 		selectedBookAuthorLabel.setText("Author: ");
 		selectedBookYearPublishedLabel.setText("Year Published: ");
