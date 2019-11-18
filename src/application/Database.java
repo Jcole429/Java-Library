@@ -22,8 +22,8 @@ public class Database {
 		
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection(url);
-//			Connection conn = DriverManager.getConnection(db_url, props);
+//			Connection conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(db_url, props);
 			this.conn = conn;
 			
 		} catch (ClassNotFoundException | SQLException e) {
@@ -102,5 +102,36 @@ public class Database {
 		return list;
 	}
 	
+	public boolean createNewUser(String firstName,String lastName,String username,String password) {
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(
+					"INSERT INTO USERS (first_name,last_name,username,password_hash)"
+					+ "VALUES ('"+firstName+"','"+lastName+"','"+username+"',crypt('"+password+"',gen_salt('bf')));");
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
+	public boolean doesUserExist(String username) {
+		Statement st;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT username FROM users where username = '" + username + "';");
+			if (rs == null) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 }
