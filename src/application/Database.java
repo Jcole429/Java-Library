@@ -108,7 +108,7 @@ public class Database {
 			st = conn.createStatement();
 			st.executeUpdate(
 					"INSERT INTO USERS (first_name,last_name,username,password_hash)"
-					+ "VALUES ('"+firstName+"','"+lastName+"','"+username+"',crypt('"+password+"',gen_salt('bf')));");
+					+ "VALUES ('"+firstName+"','"+lastName+"',lower('"+username+"'),crypt('"+password+"',gen_salt('bf')));");
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -122,7 +122,7 @@ public class Database {
 		Statement st;
 		try {
 			st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT username FROM users where username = '" + username + "';");
+			ResultSet rs = st.executeQuery("SELECT username FROM users where username = lower('" + username + "');");
 			if (rs.next() == false) {
 				return false;
 			} else {
@@ -138,12 +138,12 @@ public class Database {
 	public boolean isLoginSuccessful(String username, String password) throws SQLException {
 		Statement st;
 		st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT username FROM users WHERE username = '" + username + "';");
+		ResultSet rs = st.executeQuery("SELECT username FROM users WHERE username = lower('" + username + "');");
 		if (rs.next() == false) {
 			System.out.println("User does not exist");
 			return false;
 		}
-		rs = st.executeQuery("SELECT username FROM users WHERE username = '" + username + "' and password_hash = crypt('" + password+ "',password_hash);");
+		rs = st.executeQuery("SELECT username FROM users WHERE username = lower('" + username + "') and password_hash = crypt('" + password+ "',password_hash);");
 //		System.out.println(rs.next());
 		if (rs.next() == false) {
 			System.out.println("Incorrect password");
