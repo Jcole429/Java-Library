@@ -60,6 +60,7 @@ public class NewUserController {
 			boolean result = db.createNewUser(user.firstName,user.lastName,user.username,user.password);
 			if (result) {
 				System.out.println("User added");
+				errorLabel.setText("User created!");
 			} else {
 				System.out.println("User not added");
 			}
