@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LibraryController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LibraryController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefWidth="280.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefWidth="280.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="TOP_LEFT" text="Available Books" />
                   <ListView fx:id="listView" onMouseClicked="#bookSelected" />
@@ -17,15 +18,35 @@
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="selectedBookTitleLabel" text="Title:" />
-                  <Label fx:id="selectedBookAuthorLabel" text="Author:" />
-                  <Label fx:id="selectedBookPublishedYearLabel" text="Year Published:" />
-                  <Label fx:id="selectedBookNumAvailableLabel" text="# Available:" />
+                  <Label text="Selected Book" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="selectedBookTitleLabel" text="Title:" />
+                        <Label fx:id="selectedBookAuthorLabel" text="Author:" />
+                        <Label fx:id="selectedBookPublishedYearLabel" text="Year Published:" />
+                        <Label fx:id="selectedBookNumAvailableLabel" text="# Available:" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </center>
+         <right>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Current User" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Name:" />
+                        <Label text="Username:" />
+                     </children>
+                  </VBox>
+                  <Label text="Checked out books:" />
+                  <ListView prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>
