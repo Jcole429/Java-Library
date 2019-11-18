@@ -48,8 +48,7 @@ public class NewUserController {
 	
 	public void createNewUser() {
 		Database db = new Database();
-		User user = new User(firstNameTextField.getText(),lastNameTextField.getText(),usernameTextField.getText(),passwordTextField.getText(),passwordConfirmTextField.getText());
-		if (user.firstName.equals("")||user.lastName.equals("")||user.username.equals("")||user.password.equals("")||user.passwordConfirmation.equals("")) {
+		if (firstNameTextField.getText().equals("")||lastNameTextField.getText().equals("")||usernameTextField.getText().equals("")||passwordTextField.getText().equals("")||passwordConfirmTextField.getText().equals("")) {
 			errorLabel.setText("Must fill in all fields");
 		} else if (!passwordTextField.getText().equals(passwordConfirmTextField.getText())) {
 			errorLabel.setText("Passwords do not match!");
@@ -57,7 +56,7 @@ public class NewUserController {
 			errorLabel.setText("Username already exists!");
 		}
 		else {
-			boolean result = db.createNewUser(user.firstName,user.lastName,user.username,user.password);
+			boolean result = db.createNewUser(firstNameTextField.getText(),lastNameTextField.getText(),usernameTextField.getText(),passwordTextField.getText());
 			if (result) {
 				System.out.println("User added");
 				errorLabel.setText("User created!");
