@@ -5,8 +5,6 @@ public class User {
 	String firstName;
 	String lastName;
 	String username;
-	String password;
-	String passwordConfirmation;
 	boolean isAdmin;	
 	
 	public User(String firstName, String lastName) {
@@ -14,19 +12,9 @@ public class User {
 		this.lastName = lastName;
 	}
 	
-	public User(String firstName, String lastName, String username, String password) {
+	public User(String firstName, String lastName, String username) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
-		this.password = password;
 	}
-	
-	public User(String firstName, String lastName, String username, String password, String passwordConfirmation) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.username = username;
-		this.password = password;
-		this.passwordConfirmation = passwordConfirmation;
-	}
-
 }
