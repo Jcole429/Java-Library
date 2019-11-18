@@ -123,7 +123,7 @@ public class Database {
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT username FROM users where username = '" + username + "';");
-			if (rs == null) {
+			if (rs.next() == false) {
 				return false;
 			} else {
 				return true;
@@ -132,6 +132,24 @@ public class Database {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
+	}
+	
+	public boolean isLoginSuccessful(String username, String password) throws SQLException {
+		Statement st;
+		st = conn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT username FROM users WHERE username = '" + username + "';");
+		if (rs.next() == false) {
+			System.out.println("User does not exist");
+			return false;
+		}
+		rs = st.executeQuery("SELECT username FROM users WHERE username = '" + username + "' and password_hash = crypt('" + password+ "',password_hash);");
+//		System.out.println(rs.next());
+		if (rs.next() == false) {
+			System.out.println("Incorrect password");
+			return false;
+		}
+		System.out.println("Successful login");
 		return true;
 	}
 }

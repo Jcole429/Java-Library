@@ -20,6 +20,7 @@
             <PasswordField fx:id="passwordTextField" />
             <Label text="Confirm Password:" />
             <PasswordField fx:id="passwordConfirmTextField" />
+            <Label fx:id="errorLabel" textFill="RED" />
             <HBox alignment="CENTER" prefHeight="50.0" spacing="20.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#login" text="Back to Login" />

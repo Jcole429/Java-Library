@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,6 +29,8 @@ public class NewUserController {
 	@FXML
 	public TextField passwordConfirmTextField;
 	
+	@FXML
+	public Label errorLabel;
 	
 	public NewUserController() {
 		
@@ -47,11 +50,11 @@ public class NewUserController {
 		Database db = new Database();
 		User user = new User(firstNameTextField.getText(),lastNameTextField.getText(),usernameTextField.getText(),passwordTextField.getText(),passwordConfirmTextField.getText());
 		if (user.firstName.equals("")||user.lastName.equals("")||user.username.equals("")||user.password.equals("")||user.passwordConfirmation.equals("")) {
-			System.out.println("Must fill in all fields");
+			errorLabel.setText("Must fill in all fields");
 		} else if (!passwordTextField.getText().equals(passwordConfirmTextField.getText())) {
-			System.out.println("Passwords do not match!");
+			errorLabel.setText("Passwords do not match!");
 		} else if (db.doesUserExist(usernameTextField.getText())) {
-			System.out.println("User already exists");
+			errorLabel.setText("Username already exists!");
 		}
 		else {
 			boolean result = db.createNewUser(user.firstName,user.lastName,user.username,user.password);
