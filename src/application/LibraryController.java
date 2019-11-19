@@ -19,11 +19,10 @@ public class LibraryController implements Initializable{
 
 	Database db = new Database();
 	
-	@FXML
-	public ListView<Book> listView;
+	public Book selectedBook;
 	
 	@FXML
-	public Book selectedBook;
+	public ListView<Book> availableBooksListView;
 	
 	@FXML
 	public Label selectedBookTitleLabel;
@@ -37,24 +36,35 @@ public class LibraryController implements Initializable{
 	@FXML
 	public Label selectedBookNumAvailableLabel;
 	
+	@FXML
+	public Label currentUserUsername;
+	
+	@FXML
+	public Label currentUserFullName;
+	
 	public LibraryController() throws SQLException {
-		System.out.println("In Library Controller");
+		
 	}
 	
 	
 	public void initialize(URL location, ResourceBundle resources){
 		try {
-			listView.getItems().addAll(db.getAvailableBooks("title"));
+			availableBooksListView.getItems().addAll(db.getAvailableBooks("title"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		listView.setCellFactory(new BookCellFactory());
+		availableBooksListView.setCellFactory(new BookCellFactory());
+		
+		SessionController sessionController = new SessionController();
+		
+		this.currentUserUsername.setText("Username: " + sessionController.currentUser().username);
+		this.currentUserFullName.setText("Name: " + sessionController.currentUser().firstName + " " + sessionController.currentUser().lastName);
 	}
 	
 	@FXML
 	public void bookSelected(Event event) {
-		this.selectedBook = listView.getSelectionModel().getSelectedItem();
+		this.selectedBook = availableBooksListView.getSelectionModel().getSelectedItem();
 		this.selectedBookTitleLabel.setText("Title: " + this.selectedBook.title);
 		this.selectedBookAuthorLabel.setText("Author: " + this.selectedBook.authorFirstName + " " + this.selectedBook.authorLastName);
 		this.selectedBookPublishedYearLabel.setText("Year Published: " + this.selectedBook.yearPublished);

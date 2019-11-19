@@ -45,8 +45,8 @@
                   <Label text="Current User" />
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Name:" />
-                        <Label text="Username:" />
+                        <Label fx:id="currentUserFullName" text="Name:" />
+                        <Label fx:id="currentUserUsername" text="Username:" />
                      </children>
                   </VBox>
                   <Label text="Checked out books:" />

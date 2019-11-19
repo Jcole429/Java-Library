@@ -32,6 +32,8 @@ public class LoginController {
 	public void login(Event event) throws IOException, SQLException {
 		Database db = new Database();
 		if (db.isLoginSuccessful(usernameTextField.getText(), passwordTextField.getText())) {
+			SessionController sessionController = new SessionController();
+			sessionController.createSession(db.getUser(usernameTextField.getText()));
 			Parent root = FXMLLoader.load(getClass().getResource("/application/LibraryScreen.fxml"));
 			
 			Node node = (Node) event.getSource();
