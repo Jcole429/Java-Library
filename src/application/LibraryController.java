@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -42,6 +43,12 @@ public class LibraryController implements Initializable{
 	@FXML
 	public Label currentUserFullName;
 	
+	@FXML
+	public Button checkoutButton;
+	
+	@FXML
+	public Button checkInButton;
+	
 	public LibraryController() throws SQLException {
 		
 	}
@@ -71,4 +78,10 @@ public class LibraryController implements Initializable{
 		this.selectedBookNumAvailableLabel.setText("# Available: " + this.selectedBook.numAvailable);
 	}
 	
+	@FXML
+	public void checkoutBook(Event event) throws SQLException {
+		Database db = new Database();
+		SessionController sessionController = new SessionController();
+		db.checkoutBook(selectedBook, sessionController.currentUser());
+	}
 }

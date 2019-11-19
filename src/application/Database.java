@@ -43,7 +43,8 @@ public class Database {
 		while (rs.next())
 		{
 			list.add(new Book(
-					rs.getString("title")
+					rs.getInt("id")
+					,rs.getString("title")
 					,rs.getString("authorFirstName")
 					,rs.getString("authorLastName")
 					,rs.getInt("yearPublished")
@@ -65,7 +66,8 @@ public class Database {
 		
 		while (rs.next()) {
 			list.add(new Book(
-					rs.getString("title")
+					rs.getInt("id")
+					,rs.getString("title")
 					,rs.getString("authorFirstName")
 					,rs.getString("authorLastName")
 					,rs.getInt("yearPublished")
@@ -88,7 +90,8 @@ public class Database {
 		
 		while (rs.next()) {
 			list.add(new Book(
-					rs.getString("title")
+					rs.getInt("id")
+					,rs.getString("title")
 					,rs.getString("authorFirstName")
 					,rs.getString("authorLastName")
 					,rs.getInt("yearPublished")
@@ -157,12 +160,12 @@ public class Database {
 		Statement st;
 		try {
 			st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT username,first_name,last_name FROM users WHERE username='" + username.toLowerCase() + "';");
+			ResultSet rs = st.executeQuery("SELECT id,username,first_name,last_name FROM users WHERE username='" + username.toLowerCase() + "';");
 			
 			User user;
 			
 			while (rs.next()) {
-				user = new User(rs.getString("first_name"),rs.getString("last_name"),rs.getString("username"));
+				user = new User(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("username"));
 				return user;
 			}
 			return null;
@@ -170,6 +173,24 @@ public class Database {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void checkoutBook(Book book, User user) throws SQLException {
+		int bookInstanceId;
+		
+		Statement st = conn.createStatement();
+		
+		String query = "SELECT id,book_id,is_available,checked_out_by from book_instances where is_available = TRUE and book_id = '" + book.id + "' limit 1;";
+		
+		System.out.println(query);
+		
+		ResultSet rs = st.executeQuery(query);
+		
+		while (rs.next()) {
+			bookInstanceId = rs.getInt("id");
+			st.executeUpdate("UPDATE book_instances set is_available = FALSE checked_out_by = '" + user.id + "' where id = '" + bookInstanceId + "';");
+			break;
 		}
 	}
 }

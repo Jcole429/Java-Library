@@ -2,6 +2,7 @@ package application;
 
 public class Book {
 	
+	int id;
 	String title;
 	String authorFirstName;
 	String authorLastName;
@@ -9,14 +10,16 @@ public class Book {
 	int numAvailable;
 	int checkedOutBy;
 	
-	public Book(String title, String authorFirstName, String authorLastName, int yearPublished) {
+	public Book(int id,String title, String authorFirstName, String authorLastName, int yearPublished) {
+		this.id = id;
 		this.title = title;
 		this.authorFirstName = authorFirstName;
 		this.authorLastName = authorLastName;
 		this.yearPublished = yearPublished;
 	}
 	
-	public Book(String title, String authorFirstName, String authorLastName, int yearPublished, int numAvailable) {
+	public Book(int id,String title, String authorFirstName, String authorLastName, int yearPublished, int numAvailable) {
+		this.id = id;
 		this.title = title;
 		this.authorFirstName = authorFirstName;
 		this.authorLastName = authorLastName;
