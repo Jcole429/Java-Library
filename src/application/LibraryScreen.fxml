@@ -16,6 +16,7 @@
                <children>
                   <Label alignment="TOP_LEFT" text="Available Books" />
                   <ListView fx:id="availableBooksListView" onMouseClicked="#bookSelected" />
+                  <Button mnemonicParsing="false" onMouseClicked="#refreshListViews" text="Refresh List Views" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -49,10 +50,11 @@
                      <children>
                         <Label fx:id="currentUserFullName" text="Name:" />
                         <Label fx:id="currentUserUsername" text="Username:" />
+                        <Button mnemonicParsing="false" text="Logout" />
                      </children>
                   </VBox>
                   <Label text="Checked out books:" />
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="checkedOutBooksListView" prefHeight="200.0" />
                   <Button mnemonicParsing="false" text="Check in Book" />
                </children>
                <padding>

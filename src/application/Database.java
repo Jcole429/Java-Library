@@ -36,7 +36,8 @@ public class Database {
 	public ObservableList<Book> getBooks() throws SQLException {
 		
 		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM books");
+		String query = "SELECT * FROM books";
+		ResultSet rs = st.executeQuery(query);
 		
 		ObservableList<Book> list = FXCollections.observableArrayList();
 		
@@ -57,10 +58,38 @@ public class Database {
 		return list;
 	}
 	
+	public ObservableList<Book> getCheckedOutBooks(User user) throws SQLException {
+		
+		Statement st = conn.createStatement();
+		String query = "SELECT * FROM vw_checked_out_books where checked_out_by = '" + user.id +  "';";
+		ResultSet rs = st.executeQuery(query);
+		
+		ObservableList<Book> list = FXCollections.observableArrayList();
+		
+		while (rs.next()) {
+			list.add(new Book(
+					rs.getInt("book_id")
+					,rs.getInt("id")
+					,rs.getString("title")
+					,rs.getString("authorFirstName")
+					,rs.getString("authorLastName")
+					,rs.getInt("yearPublished")
+					,rs.getInt("checked_out_by")
+					));
+		}
+		
+		rs.close();
+		st.close();
+		
+		return list;
+	}
+	
 	public ObservableList<Book> getAvailableBooks() throws SQLException {
 		
 		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM vw_available_books");
+		String query = "SELECT * FROM vw_available_books";
+		System.out.println(query);
+		ResultSet rs = st.executeQuery(query);
 		
 		ObservableList<Book> list = FXCollections.observableArrayList();
 		
@@ -84,7 +113,9 @@ public class Database {
 	public ObservableList<Book> getAvailableBooks(String orderBy) throws SQLException {
 		
 		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM vw_available_books order by " + orderBy);
+		String query = "SELECT * FROM vw_available_books order by " + orderBy;
+		System.out.println(query);
+		ResultSet rs = st.executeQuery(query);
 		
 		ObservableList<Book> list = FXCollections.observableArrayList();
 		
@@ -108,10 +139,10 @@ public class Database {
 	public boolean createNewUser(String firstName,String lastName,String username,String password) {
 		Statement st;
 		try {
+			String query = "INSERT INTO USERS (first_name,last_name,username,password_hash) VALUES ('"+firstName+"','"+lastName+"','"+username.toLowerCase()+"',crypt('"+password+"',gen_salt('bf')));";
 			st = conn.createStatement();
-			st.executeUpdate(
-					"INSERT INTO USERS (first_name,last_name,username,password_hash)"
-					+ "VALUES ('"+firstName+"','"+lastName+"','"+username.toLowerCase()+"',crypt('"+password+"',gen_salt('bf')));");
+			System.out.println(query);
+			st.executeUpdate(query);
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -125,7 +156,9 @@ public class Database {
 		Statement st;
 		try {
 			st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT username FROM users where username = '" + username.toLowerCase() + "';");
+			String query = "SELECT username FROM users where username = '" + username.toLowerCase() + "';";
+			System.out.println(query);
+			ResultSet rs = st.executeQuery(query);
 			if (rs.next() == false) {
 				return false;
 			} else {
@@ -141,7 +174,9 @@ public class Database {
 	public boolean isLoginSuccessful(String username, String password) throws SQLException {
 		Statement st;
 		st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT username FROM users WHERE username = '" + username.toLowerCase() + "';");
+		String query = "SELECT username FROM users WHERE username = '" + username.toLowerCase() + "';";
+		System.out.println(query);
+		ResultSet rs = st.executeQuery(query);
 		if (rs.next() == false) {
 			System.out.println("User does not exist");
 			return false;
@@ -160,7 +195,9 @@ public class Database {
 		Statement st;
 		try {
 			st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT id,username,first_name,last_name FROM users WHERE username='" + username.toLowerCase() + "';");
+			String query = "SELECT id,username,first_name,last_name FROM users WHERE username='" + username.toLowerCase() + "';";
+			System.out.println(query);
+			ResultSet rs = st.executeQuery(query);
 			
 			User user;
 			
@@ -181,15 +218,15 @@ public class Database {
 		
 		Statement st = conn.createStatement();
 		
-		String query = "SELECT id,book_id,is_available,checked_out_by from book_instances where is_available = TRUE and book_id = '" + book.id + "' limit 1;";
-		
+		String query = "SELECT id,book_id,is_available,checked_out_by from book_instances where is_available = TRUE and book_id = " + book.id + " limit 1;";
 		System.out.println(query);
-		
 		ResultSet rs = st.executeQuery(query);
 		
 		while (rs.next()) {
 			bookInstanceId = rs.getInt("id");
-			st.executeUpdate("UPDATE book_instances set is_available = FALSE checked_out_by = '" + user.id + "' where id = '" + bookInstanceId + "';");
+			query = "UPDATE book_instances set is_available = FALSE,checked_out_by = " + user.id + " where id = " + bookInstanceId + ";";
+			System.out.println(query);
+			st.executeUpdate(query);
 			break;
 		}
 	}
