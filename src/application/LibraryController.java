@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -93,6 +94,16 @@ public class LibraryController implements Initializable{
 //		updateSelectedBook();
 	}
 	
+	@FXML
+	public void logout(Event event) throws IOException {
+		SessionController sessionController = new SessionController();
+		sessionController.destroySession();
+		Parent root = FXMLLoader.load(getClass().getResource("/application/LoginScreen.fxml"));
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.setScene(new Scene(root));
+	}
+	
 	public void updateAvailableBooksListView() {
 		try {
 			availableBooksListView.getItems().clear();
@@ -123,11 +134,4 @@ public class LibraryController implements Initializable{
 		this.selectedBookPublishedYearLabel.setText("Year Published: ");
 		this.selectedBookNumAvailableLabel.setText("# Available: ");
 	}
-//	public void updateSelectedBook() {
-//		this.selectedBook = availableBooksListView.getSelectionModel().getSelectedItem();
-//		this.selectedBookTitleLabel.setText("Title: " + this.selectedBook.title);
-//		this.selectedBookAuthorLabel.setText("Author: " + this.selectedBook.authorFirstName + " " + this.selectedBook.authorLastName);
-//		this.selectedBookPublishedYearLabel.setText("Year Published: " + this.selectedBook.yearPublished);
-//		this.selectedBookNumAvailableLabel.setText("# Available: " + this.selectedBook.numAvailable);
-//	}
 }
