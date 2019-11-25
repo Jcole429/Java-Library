@@ -23,6 +23,8 @@ public class LibraryController implements Initializable{
 	
 	public Book selectedBook;
 	
+	public Book userSelectedBook;
+	
 	@FXML
 	public ListView<Book> availableBooksListView;
 	
@@ -76,6 +78,11 @@ public class LibraryController implements Initializable{
 	}
 	
 	@FXML
+	public void userBookSelected(Event event) {
+		this.userSelectedBook = checkedOutBooksListView.getSelectionModel().getSelectedItem();
+	}
+	
+	@FXML
 	public void checkoutBook(Event event) throws SQLException {
 		Database db = new Database();
 		SessionController sessionController = new SessionController();
@@ -83,8 +90,16 @@ public class LibraryController implements Initializable{
 		db.checkoutBook(selectedBook, sessionController.currentUser());
 		updateAvailableBooksListView();
 		updateCheckedOutBooksListView();
-//		updateSelectedBook();
 		resetSelectedBook();
+	}
+	
+	@FXML
+	public void checkInBook(Event event) throws SQLException {
+		Database db = new Database();
+		db.checkInBook(userSelectedBook);
+		updateAvailableBooksListView();
+		updateCheckedOutBooksListView();
+		this.userSelectedBook = null;
 	}
 	
 	@FXML

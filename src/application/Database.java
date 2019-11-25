@@ -230,4 +230,14 @@ public class Database {
 			break;
 		}
 	}
+	
+	public void checkInBook(Book book) throws SQLException {
+		
+		Statement st = conn.createStatement();
+		
+		String query = "UPDATE book_instances set is_available = TRUE, checked_out_by = null where id = " + book.instance_id + ";";
+		System.out.println(query);
+		st.executeUpdate(query);
+		
+	}
 }
