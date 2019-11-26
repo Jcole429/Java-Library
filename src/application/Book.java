@@ -19,6 +19,13 @@ public class Book {
 		this.yearPublished = yearPublished;
 	}
 	
+	public Book(String title, String authorFirstName, String authorLastName, int yearPublished) {
+		this.title = title;
+		this.authorFirstName = authorFirstName;
+		this.authorLastName = authorLastName;
+		this.yearPublished = yearPublished;
+	}
+	
 	public Book(int id,int instance_id,String title, String authorFirstName, String authorLastName, int yearPublished, int checkedOutBy) {
 		this.id = id;
 		this.instance_id = instance_id;

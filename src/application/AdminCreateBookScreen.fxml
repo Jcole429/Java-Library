@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminCreateBookController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Title" />
+            <TextField fx:id="titleTextField" />
+            <Label text="Author first name:" />
+            <TextField fx:id="authorFirstNameTextField" />
+            <Label text="Author last name:" />
+            <TextField fx:id="authorLastNameTextField" />
+            <Label text="Year published:" />
+            <TextField fx:id="yearPublishedTextField" />
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#createBook" text="Create book" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

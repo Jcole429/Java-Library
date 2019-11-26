@@ -123,10 +123,10 @@ public class Database {
 			list.add(new Book(
 					rs.getInt("id")
 					,rs.getString("title")
-					,rs.getString("authorFirstName")
-					,rs.getString("authorLastName")
-					,rs.getInt("yearPublished")
-					,rs.getInt("numAvailable")
+					,rs.getString("author_first_name")
+					,rs.getString("author_last_name")
+					,rs.getInt("year_published")
+					,rs.getInt("num_available")
 					));
 		}
 		
@@ -195,14 +195,14 @@ public class Database {
 		Statement st;
 		try {
 			st = conn.createStatement();
-			String query = "SELECT id,username,first_name,last_name FROM users WHERE username='" + username.toLowerCase() + "';";
+			String query = "SELECT id,username,first_name,last_name,is_admin FROM users WHERE username='" + username.toLowerCase() + "';";
 			System.out.println(query);
 			ResultSet rs = st.executeQuery(query);
 			
 			User user;
 			
 			while (rs.next()) {
-				user = new User(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("username"));
+				user = new User(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getString("username"),rs.getBoolean("is_admin"));
 				return user;
 			}
 			return null;
@@ -239,5 +239,12 @@ public class Database {
 		System.out.println(query);
 		st.executeUpdate(query);
 		
+	}
+	
+	public void createBook(Book book) throws SQLException {
+		Statement st = conn.createStatement();
+		String query = "INSERT INTO books (title,author_first_name,author_last_name,year_published) values ('" + book.title + "','" + book.authorFirstName + "','" + book.authorLastName + "','" + book.yearPublished + "');";
+		System.out.println(query);
+		st.executeUpdate(query);
 	}
 }

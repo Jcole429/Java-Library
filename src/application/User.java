@@ -19,4 +19,12 @@ public class User {
 		this.lastName = lastName;
 		this.username = username;
 	}
+	
+	public User(int id,String firstName, String lastName, String username, Boolean isAdmin) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.isAdmin = isAdmin;
+	}
 }

@@ -55,6 +55,12 @@ public class LibraryController implements Initializable{
 	@FXML
 	public Button checkInButton;
 	
+	@FXML
+	public Button logoutButton;
+	
+	@FXML
+	public Button adminButton;
+	
 	public LibraryController() throws SQLException {
 		
 	}
@@ -66,6 +72,13 @@ public class LibraryController implements Initializable{
 		this.currentUserFullName.setText("Name: " + sessionController.currentUser().firstName + " " + sessionController.currentUser().lastName);
 		updateAvailableBooksListView();
 		updateCheckedOutBooksListView();
+
+		
+		if(sessionController.currentUser().isAdmin) {
+			adminButton.setVisible(true);
+		} else {
+			adminButton.setVisible(false);
+		}
 	}
 	
 	@FXML
@@ -148,5 +161,12 @@ public class LibraryController implements Initializable{
 		this.selectedBookAuthorLabel.setText("Author: ");
 		this.selectedBookPublishedYearLabel.setText("Year Published: ");
 		this.selectedBookNumAvailableLabel.setText("# Available: ");
+	}
+	
+	public void loadAdminCreateBookScreen(Event event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/application/AdminCreateBookScreen.fxml"));
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.setScene(new Scene(root));
 	}
 }
