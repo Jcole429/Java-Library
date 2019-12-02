@@ -101,6 +101,7 @@ public class Database {
 					,rs.getString("authorLastName")
 					,rs.getInt("yearPublished")
 					,rs.getInt("numAvailable")
+					,rs.getInt("num_copies")
 					));
 		}
 		
@@ -127,6 +128,7 @@ public class Database {
 					,rs.getString("author_last_name")
 					,rs.getInt("year_published")
 					,rs.getInt("num_available")
+					,rs.getInt("num_copies")
 					));
 		}
 		
