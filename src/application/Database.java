@@ -87,7 +87,7 @@ public class Database {
 	public ObservableList<Book> getAvailableBooks() throws SQLException {
 		
 		Statement st = conn.createStatement();
-		String query = "SELECT * FROM vw_available_books";
+		String query = "SELECT * FROM vw_available_books where num_available > 0";
 		System.out.println(query);
 		ResultSet rs = st.executeQuery(query);
 		
@@ -114,7 +114,7 @@ public class Database {
 	public ObservableList<Book> getAvailableBooks(String orderBy) throws SQLException {
 		
 		Statement st = conn.createStatement();
-		String query = "SELECT * FROM vw_available_books order by " + orderBy;
+		String query = "SELECT * FROM vw_available_books where num_available > 0 order by " + orderBy;
 		System.out.println(query);
 		ResultSet rs = st.executeQuery(query);
 		
