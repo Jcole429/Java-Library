@@ -138,10 +138,10 @@ public class Database {
 		return list;
 	}
 	
-	public ObservableList<Book> getAllBooks(String orderBy) throws SQLException {
+	public ObservableList<Book> getBookInstances(String orderBy) throws SQLException {
 		
 		Statement st = conn.createStatement();
-		String query = "SELECT * FROM vw_available_books order by " + orderBy;
+		String query = "SELECT * FROM vw_book_instances order by " + orderBy;
 		System.out.println(query);
 		ResultSet rs = st.executeQuery(query);
 		
@@ -149,13 +149,13 @@ public class Database {
 		
 		while (rs.next()) {
 			list.add(new Book(
-					rs.getInt("id")
+					rs.getInt("book_id")
+					,rs.getInt("id")
 					,rs.getString("title")
 					,rs.getString("author_first_name")
 					,rs.getString("author_last_name")
 					,rs.getInt("year_published")
-					,rs.getInt("num_available")
-					,rs.getInt("num_copies")
+					,rs.getInt("checked_out_by")
 					));
 		}
 		
@@ -267,12 +267,32 @@ public class Database {
 		String query = "UPDATE book_instances set is_available = TRUE, checked_out_by = null where id = " + book.instance_id + ";";
 		System.out.println(query);
 		st.executeUpdate(query);
-		
 	}
 	
 	public void createBook(Book book) throws SQLException {
 		Statement st = conn.createStatement();
 		String query = "INSERT INTO books (title,author_first_name,author_last_name,year_published) values ('" + book.title + "','" + book.authorFirstName + "','" + book.authorLastName + "','" + book.yearPublished + "');";
+		System.out.println(query);
+		st.executeUpdate(query);
+	}
+	
+//	public void addBookInstance(Book book) throws SQLException {
+//		Statement st = conn.createStatement();
+//		String query = "update books (title,author_first_name,author_last_name,year_published) values ('" + book.title + "','" + book.authorFirstName + "','" + book.authorLastName + "','" + book.yearPublished + "');";
+//		System.out.println(query);
+//		st.executeUpdate(query);
+//	}
+//	
+	public void deleteBookInstance(Book book) throws SQLException {
+		Statement st = conn.createStatement();
+		String query = "delete from book_instances where id = " + book.instance_id + ";";
+		System.out.println(query);
+		st.executeUpdate(query);
+	}
+	
+	public void createBookInstance(Book book) throws SQLException {
+		Statement st = conn.createStatement();
+		String query = "insert into book_instances (book_id) values (" + book.id + ");";
 		System.out.println(query);
 		st.executeUpdate(query);
 	}

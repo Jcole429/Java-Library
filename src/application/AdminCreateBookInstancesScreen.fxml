@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminCreateBookInstancesController">
+   <children>
+      <SplitPane dividerPositions="0.45" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <ListView fx:id="bookListView" onMouseClicked="#bookSelected" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="bookIdLabel" text="Book ID:" />
+                        <Label fx:id="bookInstanceIdLabel" text="Book Instance ID: " />
+                        <Label fx:id="bookTitleLabel" text="Title:" />
+                        <Label fx:id="authorLabel" text="Author:" />
+                        <Label fx:id="yearPublishedLabel" text="Year Published:" />
+                        <Label fx:id="checkedOutByLabel" text="Checked out by:" />
+                        <HBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <Button fx:id="deleteBookInstanceButton" mnemonicParsing="false" onAction="#deleteBookInstance" text="Delete book instance" />
+                              <Button fx:id="createBookInstanceButton" mnemonicParsing="false" onAction="#createBookInstance" text="Create new book instance" />
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#loadLibraryScreen" text="Back to library" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

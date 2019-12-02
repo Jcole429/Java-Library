@@ -59,7 +59,11 @@ public class LibraryController implements Initializable{
 	public Button logoutButton;
 	
 	@FXML
-	public Button adminButton;
+	public Button adminCreateBookButton;
+	
+	@FXML
+	public Button adminCreateBookInstanceButton;
+	
 	
 	public LibraryController() throws SQLException {
 		
@@ -75,9 +79,11 @@ public class LibraryController implements Initializable{
 
 		
 		if(sessionController.currentUser().isAdmin) {
-			adminButton.setVisible(true);
+			adminCreateBookButton.setVisible(true);
+			adminCreateBookInstanceButton.setVisible(true);
 		} else {
-			adminButton.setVisible(false);
+			adminCreateBookButton.setVisible(false);
+			adminCreateBookInstanceButton.setVisible(false);
 		}
 	}
 	
@@ -119,7 +125,6 @@ public class LibraryController implements Initializable{
 	public void refreshListViews(Event event) {
 		updateAvailableBooksListView();
 		updateCheckedOutBooksListView();
-//		updateSelectedBook();
 	}
 	
 	@FXML
@@ -165,6 +170,13 @@ public class LibraryController implements Initializable{
 	
 	public void loadAdminCreateBookScreen(Event event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/application/AdminCreateBookScreen.fxml"));
+		Node node = (Node) event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.setScene(new Scene(root));
+	}
+	
+	public void loadAdminCreateBookInstancesScreen(Event event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/application/AdminCreateBookInstancesScreen.fxml"));
 		Node node = (Node) event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.setScene(new Scene(root));

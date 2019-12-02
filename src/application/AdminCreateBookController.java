@@ -18,7 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AdminCreateBookController {
+public class AdminCreateBookController implements Initializable {
 	
 	@FXML
 	public Button createBookButton;
@@ -37,6 +37,9 @@ public class AdminCreateBookController {
 	
 	@FXML
 	public TextField yearPublishedTextField;
+	
+	@FXML
+	public Label errorLabel;
 
 	public AdminCreateBookController() {
 		
@@ -61,12 +64,21 @@ public class AdminCreateBookController {
 		String title = titleTextField.getText();
 		String firstName = authorFirstNameTextField.getText();
 		String lastName = authorLastNameTextField.getText();
-		int yearPublished = Integer.parseInt(yearPublishedTextField.getText());
+		int yearPublished = -1;
+		if (yearPublishedTextField.getText().length() > 0) {
+			yearPublished = Integer.parseInt(yearPublishedTextField.getText());	
+		}
 		
-		Database db = new Database();
-		
-		Book newBook = new Book(title,firstName,lastName,yearPublished);
-		
-		db.createBook(newBook);
+		if (title.equals("") || firstName.equals("") || lastName.equals("") || yearPublished == -1) {
+			errorLabel.setText("Complete all fields");
+		} else {
+			Database db = new Database();
+			
+			Book newBook = new Book(title,firstName,lastName,yearPublished);
+			
+			db.createBook(newBook);
+			
+			errorLabel.setText("Book created");
+		}
 	}
 }
