@@ -138,6 +138,33 @@ public class Database {
 		return list;
 	}
 	
+	public ObservableList<Book> getAllBooks(String orderBy) throws SQLException {
+		
+		Statement st = conn.createStatement();
+		String query = "SELECT * FROM vw_available_books order by " + orderBy;
+		System.out.println(query);
+		ResultSet rs = st.executeQuery(query);
+		
+		ObservableList<Book> list = FXCollections.observableArrayList();
+		
+		while (rs.next()) {
+			list.add(new Book(
+					rs.getInt("id")
+					,rs.getString("title")
+					,rs.getString("author_first_name")
+					,rs.getString("author_last_name")
+					,rs.getInt("year_published")
+					,rs.getInt("num_available")
+					,rs.getInt("num_copies")
+					));
+		}
+		
+		rs.close();
+		st.close();
+		
+		return list;
+	}
+	
 	public boolean createNewUser(String firstName,String lastName,String username,String password) {
 		Statement st;
 		try {
