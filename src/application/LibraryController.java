@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LibraryController implements Initializable{
@@ -63,6 +66,9 @@ public class LibraryController implements Initializable{
 	
 	@FXML
 	public Button adminCreateBookInstanceButton;
+	
+	@FXML
+	public TextField searchBoxTextField;
 	
 	
 	public LibraryController() throws SQLException {
@@ -141,6 +147,24 @@ public class LibraryController implements Initializable{
 		try {
 			availableBooksListView.getItems().clear();
 			availableBooksListView.getItems().addAll(db.getAvailableBooks("title"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		availableBooksListView.setCellFactory(new BookCellFactory());
+	}
+	
+	public void updateAvailableBooksListViewWithSearch() {
+		try {
+			ObservableList<Book> list = db.getAvailableBooks("title");
+			
+			availableBooksListView.getItems().clear();
+			
+			for (int i=0; i < list.size(); i++) {
+				if (list.get(i).getTitle().toLowerCase().contains(searchBoxTextField.getText().toLowerCase())) {
+					availableBooksListView.getItems().add(list.get(i));
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
