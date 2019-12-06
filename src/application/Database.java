@@ -275,13 +275,7 @@ public class Database {
 		System.out.println(query);
 		st.executeUpdate(query);
 	}
-	
-//	public void addBookInstance(Book book) throws SQLException {
-//		Statement st = conn.createStatement();
-//		String query = "update books (title,author_first_name,author_last_name,year_published) values ('" + book.title + "','" + book.authorFirstName + "','" + book.authorLastName + "','" + book.yearPublished + "');";
-//		System.out.println(query);
-//		st.executeUpdate(query);
-//	}
+
 //	
 	public void deleteBookInstance(Book book) throws SQLException {
 		Statement st = conn.createStatement();
