@@ -46,9 +46,9 @@ public class Database {
 			list.add(new Book(
 					rs.getInt("id")
 					,rs.getString("title")
-					,rs.getString("authorFirstName")
-					,rs.getString("authorLastName")
-					,rs.getInt("yearPublished")
+					,rs.getString("author_first_name")
+					,rs.getString("author_last_name")
+					,rs.getInt("year_published")
 					));
 		}
 		
@@ -138,10 +138,37 @@ public class Database {
 		return list;
 	}
 	
-	public ObservableList<Book> getBookInstances(String orderBy) throws SQLException {
+	public ObservableList<Book> getBookInstances() throws SQLException {
 		
 		Statement st = conn.createStatement();
-		String query = "SELECT * FROM vw_book_instances order by " + orderBy;
+		String query = "SELECT * FROM vw_book_instances order by title";
+		System.out.println(query);
+		ResultSet rs = st.executeQuery(query);
+		
+		ObservableList<Book> list = FXCollections.observableArrayList();
+		
+		while (rs.next()) {
+			list.add(new Book(
+					rs.getInt("book_id")
+					,rs.getInt("id")
+					,rs.getString("title")
+					,rs.getString("author_first_name")
+					,rs.getString("author_last_name")
+					,rs.getInt("year_published")
+					,rs.getInt("checked_out_by")
+					));
+		}
+		
+		rs.close();
+		st.close();
+		
+		return list;
+	}
+	
+	public ObservableList<Book> getBookInstances(String title) throws SQLException {
+		
+		Statement st = conn.createStatement();
+		String query = "SELECT * FROM vw_book_instances where title = '"+ title+"' order by title";
 		System.out.println(query);
 		ResultSet rs = st.executeQuery(query);
 		
