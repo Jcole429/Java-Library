@@ -23,8 +23,13 @@ public class AdminCreateBookInstancesController implements Initializable {
 	
 	Book selectedBook;
 	
+	Book selectedBookInstance;
+	
 	@FXML
 	public ListView<Book> bookListView;
+	
+	@FXML
+	public ListView<Book> bookListInstancesView;
 	
 	@FXML
 	public Label bookInstanceIdLabel;
@@ -62,22 +67,29 @@ public class AdminCreateBookInstancesController implements Initializable {
 	@FXML
 	public void bookSelected(Event event) {
 		this.selectedBook = bookListView.getSelectionModel().getSelectedItem();
-		this.bookInstanceIdLabel.setText("Book Instance ID: " + selectedBook.instance_id);
 		this.bookIdLabel.setText("Book ID: " + selectedBook.id);
 		this.bookTitleLabel.setText("Title: " + selectedBook.getTitle());
 		this.authorLabel.setText("Author: " + selectedBook.authorFirstName + " " + selectedBook.authorLastName);
 		this.yearPublishedLabel.setText("Year published: " + selectedBook.yearPublished);
-		if (selectedBook.checkedOutBy == 0) {
-			this.checkedOutByLabel.setText("Checked out by: ");
+
+		updateBookInstances(this.selectedBook.getTitle());
+	}
+	
+	@FXML
+	public void bookInstanceSelected(Event event) {
+		this.selectedBookInstance = bookListInstancesView.getSelectionModel().getSelectedItem();
+		this.bookInstanceIdLabel.setText("Book Instance ID: " + selectedBookInstance.instance_id);
+		if (selectedBookInstance.checkedOutBy == 0) {
+			this.checkedOutByLabel.setText("Checked out by: None");
 		}
-		else {this.checkedOutByLabel.setText("Checked out by: " + selectedBook.checkedOutBy);}
+		else {this.checkedOutByLabel.setText("Checked out by: " + selectedBookInstance.checkedOutBy);}
 	}
 	
 	public void updateBooks() {
 		try {
 			System.out.println("Started");
 			bookListView.getItems().clear();
-			bookListView.getItems().addAll(db.getBookInstances("title"));
+			bookListView.getItems().addAll(db.getBooks());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,16 +98,31 @@ public class AdminCreateBookInstancesController implements Initializable {
 		System.out.println("Finished");
 	}
 	
+	public void updateBookInstances(String title) {
+		try {
+			System.out.println("Started");
+			bookListInstancesView.getItems().clear();
+			bookListInstancesView.getItems().addAll(db.getBookInstances(title));
+			this.bookInstanceIdLabel.setText("Book Instance ID: ");
+			this.checkedOutByLabel.setText("Checked out by: ");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bookListInstancesView.setCellFactory(new BookCellFactory());
+		System.out.println("Finished");
+	}
+	
 	@FXML
 	public void deleteBookInstance() throws SQLException {
-		db.deleteBookInstance(selectedBook);
-		updateBooks();
+		db.deleteBookInstance(selectedBookInstance);
+		updateBookInstances(selectedBook.getTitle());
 	}
 	
 	@FXML
 	public void createBookInstance() throws SQLException {
 		db.createBookInstance(selectedBook);
-		updateBooks();
+		updateBookInstances(selectedBook.getTitle());
 	}
 	
 	public void loadLibraryScreen(Event event) throws IOException {

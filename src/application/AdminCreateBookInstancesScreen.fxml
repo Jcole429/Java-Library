@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -14,25 +15,48 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <ListView fx:id="bookListView" onMouseClicked="#bookSelected" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Books">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <ListView fx:id="bookListView" onMouseClicked="#bookSelected" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="bookIdLabel" text="Book ID:" />
-                        <Label fx:id="bookInstanceIdLabel" text="Book Instance ID: " />
-                        <Label fx:id="bookTitleLabel" text="Title:" />
-                        <Label fx:id="authorLabel" text="Author:" />
-                        <Label fx:id="yearPublishedLabel" text="Year Published:" />
-                        <Label fx:id="checkedOutByLabel" text="Checked out by:" />
+                        <Label text="Selected Book" />
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="bookIdLabel" text="Book ID:" />
+                              <Label fx:id="bookInstanceIdLabel" text="Book Instance ID: " />
+                              <Label fx:id="bookTitleLabel" text="Title:" />
+                              <Label fx:id="authorLabel" text="Author:" />
+                              <Label fx:id="yearPublishedLabel" text="Year Published:" />
+                              <Label fx:id="checkedOutByLabel" text="Checked out by:" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </VBox>
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
                               <Button fx:id="deleteBookInstanceButton" mnemonicParsing="false" onAction="#deleteBookInstance" text="Delete book instance" />
                               <Button fx:id="createBookInstanceButton" mnemonicParsing="false" onAction="#createBookInstance" text="Create new book instance" />
                            </children>
                         </HBox>
+                        <Label text="Book Instances" />
+                        <ListView fx:id="bookListInstancesView" onMouseClicked="#bookInstanceSelected" prefHeight="87.0" prefWidth="325.0">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </ListView>
                         <Button mnemonicParsing="false" onAction="#loadLibraryScreen" text="Back to library" />
                      </children>
                   </VBox>
