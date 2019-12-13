@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Main extends Application implements EventHandler<ActionEvent> {
+public class Main extends Application {
 	
 //	MainScreen mainScreen = new MainScreen();
 //	LoginScreenView loginScreen = new LoginScreenView();
@@ -57,10 +57,5 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("The Java Library");
 		primaryStage.show();
-	}
-	
-	@Override
-	public void handle(ActionEvent event) {
-		System.out.println("There was an event");
 	}
 }
