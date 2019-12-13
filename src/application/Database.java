@@ -168,7 +168,7 @@ public class Database {
 	public ObservableList<Book> getBookInstances(String title) throws SQLException {
 		
 		Statement st = conn.createStatement();
-		String query = "SELECT * FROM vw_book_instances where title = '"+ title+"' order by title";
+		String query = "SELECT * FROM vw_book_instances where title = '" + title.replace("'","''") + "' order by title";
 		System.out.println(query);
 		ResultSet rs = st.executeQuery(query);
 		
