@@ -15,6 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
 public class AdminCreateBookInstancesController implements Initializable {
@@ -24,6 +29,9 @@ public class AdminCreateBookInstancesController implements Initializable {
 	Book selectedBook;
 	
 	Book selectedBookInstance;
+	
+	@FXML
+	public SplitPane splitPane;
 	
 	@FXML
 	public ListView<Book> bookListView;
@@ -62,6 +70,10 @@ public class AdminCreateBookInstancesController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources){
 		SessionController sessionController = new SessionController();
 		updateBooks();
+		
+		Image img = new Image("/application/wood_image.jpeg");
+		BackgroundImage background_img = new BackgroundImage(img, null, null, null, null);
+		splitPane.setBackground(new Background(background_img));
 	}
 	
 	@FXML
@@ -87,7 +99,6 @@ public class AdminCreateBookInstancesController implements Initializable {
 	
 	public void updateBooks() {
 		try {
-			System.out.println("Started");
 			bookListView.getItems().clear();
 			bookListView.getItems().addAll(db.getBooks());
 		} catch (SQLException e) {
@@ -95,7 +106,6 @@ public class AdminCreateBookInstancesController implements Initializable {
 			e.printStackTrace();
 		}
 		bookListView.setCellFactory(new BookCellFactory());
-		System.out.println("Finished");
 	}
 	
 	public void updateBookInstances(String title) {

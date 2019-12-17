@@ -1,18 +1,28 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
-public class NewUserController {
+public class NewUserController implements Initializable {
+	
+	@FXML
+	public AnchorPane mainAnchorPane;
 	
 	@FXML
 	public TextField firstNameTextField;
@@ -33,6 +43,14 @@ public class NewUserController {
 	public Label errorLabel;
 	
 	public NewUserController() {
+		
+	}
+	
+	public void initialize(URL location, ResourceBundle resources){
+		
+		Image img = new Image("/application/wood_image.jpeg");
+		BackgroundImage background_img = new BackgroundImage(img, null, null, null, null);
+		mainAnchorPane.setBackground(new Background(background_img));
 		
 	}
 	

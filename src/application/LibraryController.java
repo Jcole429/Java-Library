@@ -18,6 +18,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LibraryController implements Initializable{
@@ -70,6 +76,8 @@ public class LibraryController implements Initializable{
 	@FXML
 	public TextField searchBoxTextField;
 	
+	@FXML BorderPane mainBorderPane;
+	
 	
 	public LibraryController() throws SQLException {
 		
@@ -91,6 +99,10 @@ public class LibraryController implements Initializable{
 			adminCreateBookButton.setVisible(false);
 			adminCreateBookInstanceButton.setVisible(false);
 		}
+		
+		Image img = new Image("/application/wood_image.jpeg");
+		BackgroundImage background_img = new BackgroundImage(img, null, null, null, null);
+		mainBorderPane.setBackground(new Background(background_img));
 	}
 	
 	@FXML

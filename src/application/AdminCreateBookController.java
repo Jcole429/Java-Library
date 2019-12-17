@@ -16,9 +16,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
 public class AdminCreateBookController implements Initializable {
+	
+	@FXML
+	public AnchorPane mainAnchorPane;
 	
 	@FXML
 	public Button createBookButton;
@@ -47,7 +54,10 @@ public class AdminCreateBookController implements Initializable {
 	
 	public void initialize(URL location, ResourceBundle resources){
 		SessionController sessionController = new SessionController();
-		
+		System.out.println("hi");
+		Image img = new Image("/application/wood_image.jpeg");
+		BackgroundImage background_img = new BackgroundImage(img, null, null, null, null);
+		mainAnchorPane.setBackground(new Background(background_img));
 	}
 	
 	@FXML

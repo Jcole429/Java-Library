@@ -12,9 +12,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LibraryController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="mainBorderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox alignment="CENTER" prefWidth="280.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefWidth="280.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="TOP_LEFT" text="Available Books" />
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
